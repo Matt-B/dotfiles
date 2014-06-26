@@ -186,7 +186,7 @@ for s = 1, screen.count() do
     batterywidgettimer:connect_signal("timeout",    
       function()    
         fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))    
-        batterywidget:set_text(" |" .. fh:read("*l") .. " | ")    
+        batterywidget:set_text(" | Battery: " .. fh:read("*l") .. " | ")    
         fh:close()    
       end    
     )    
