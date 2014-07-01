@@ -1,2 +1,4 @@
+# Turn system beep off
 xset -b &
+# Set the keyboard map to GB
 setxkbmap gb &
