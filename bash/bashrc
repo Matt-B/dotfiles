@@ -5,9 +5,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+# Set the default prompt
 PS1='[\u@\h \W]\$ '
 
+# Start tmux by default
 if [[ ! $TERM =~ screen ]]; then
     exec tmux
 fi
