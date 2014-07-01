@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Remove any existing versions of the files
+
+# Awesome WM Config
+rm -f ~/.config/awesome/rc.lua
+
+# .bashrc
+rm -f ~/.bashrc
+
+# .xprofile
+rm -f ~/.xprofile
+
+# Symlink to the new files
+
+# Awesome WM Config
+ln -s $PWD/awesome/rc.lua ~/.config/awesome/rc.lua
+
+# .bashrc
+ln -s $PWD/bash/bashrc ~/.bashrc
+
+# .xprofile
+ln -s $PWD/x/xprofile ~/.xprofile
