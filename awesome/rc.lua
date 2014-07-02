@@ -193,7 +193,7 @@ for s = 1, screen.count() do
 
     -- Create a battery widget
     batterywidget = wibox.widget.textbox()    
-    batterywidget:set_text(" | Battery | ")    
+    batterywidget:set_text(" Battery | ")    
     batterywidgettimer = timer({ timeout = 5 })    
     batterywidgettimer:connect_signal("timeout",    
       function()    
