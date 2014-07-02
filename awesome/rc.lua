@@ -198,7 +198,7 @@ for s = 1, screen.count() do
         if fh:read() == nil then
           batterywidget:set_text(" No Battery | ")
         else
-          batterywidget:set_text(" | Battery: " .. fh:read("*l") .. " | ")    
+          batterywidget:set_text(" Battery: " .. fh:read("*l") .. " | ")    
         end
         fh:close()    
       end    
