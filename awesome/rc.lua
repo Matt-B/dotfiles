@@ -112,6 +112,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
+-- Memory usage widget
+memwidget = wibox.widget.textbox()
+vicious.register(memwidget, vicious.widgets.mem, " RAM: $1% | ")
 -- Network usage widget
 netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${enp3s0 down_kb}</span> <span color="#7F9F7F">Up: ${enp3s0 up_kb}</span> | ', 3)
@@ -219,6 +222,7 @@ for s = 1, screen.count() do
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(batterywidget)
     right_layout:add(cpuwidget)
+    right_layout:add(memwidget)
     right_layout:add(netwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
