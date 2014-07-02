@@ -5,6 +5,7 @@ awful.rules = require("awful.rules")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
+local vicious = require("vicious")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
@@ -111,6 +112,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
+-- Network usage widget
+netwidget = wibox.widget.textbox()
+vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${enp3s0 down_kb}</span> <span color="#7F9F7F">Up: ${enp3s0 up_kb}</span> | ', 3)
+-- CPU widget
+cpuwidget = wibox.widget.textbox()
+vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1% |")
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
@@ -187,8 +194,12 @@ for s = 1, screen.count() do
     batterywidgettimer = timer({ timeout = 5 })    
     batterywidgettimer:connect_signal("timeout",    
       function()    
-        fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))    
-        batterywidget:set_text(" | Battery: " .. fh:read("*l") .. " | ")    
+        fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+        if fh:read() == nil then
+          batterywidget:set_text(" | No Battery | ")
+        else
+          batterywidget:set_text(" | Battery: " .. fh:read("*l") .. " | ")    
+        end
         fh:close()    
       end    
     )    
@@ -207,6 +218,8 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(batterywidget)
+    right_layout:add(cpuwidget)
+    right_layout:add(netwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
