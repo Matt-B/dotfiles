@@ -196,7 +196,7 @@ for s = 1, screen.count() do
       function()    
         fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
         if fh:read() == nil then
-          batterywidget:set_text(" | No Battery | ")
+          batterywidget:set_text(" No Battery | ")
         else
           batterywidget:set_text(" | Battery: " .. fh:read("*l") .. " | ")    
         end
