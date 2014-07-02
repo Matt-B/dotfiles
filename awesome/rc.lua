@@ -6,6 +6,7 @@ require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
 local vicious = require("vicious")
+local widgets = require("vicious.widgets")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
@@ -115,9 +116,13 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Memory usage widget
 memwidget = wibox.widget.textbox()
 vicious.register(memwidget, vicious.widgets.mem, " RAM: $1% | ")
--- Network usage widget
+-- Network usage widget (use wlp2s0 on laptop, enp3s0 on desktop)
 netwidget = wibox.widget.textbox()
-vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${enp3s0 down_kb}</span> <span color="#7F9F7F">Up: ${enp3s0 up_kb}</span> | ', 3)
+if widgets.os()[4] == "velociraptor" then
+  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${wlp2s0 down_kb}</span> <span color="#7F9F7F">Up: ${wlp2s0 up_kb}</span> | ', 3)
+else
+  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${enp3s0 down_kb}</span> <span color="#7F9F7F">Up: ${enp3s0 up_kb}</span> | ', 3)
+end
 -- CPU widget
 cpuwidget = wibox.widget.textbox()
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1% |")
@@ -197,10 +202,10 @@ for s = 1, screen.count() do
     batterywidgettimer = timer({ timeout = 5 })    
     batterywidgettimer:connect_signal("timeout",    
       function()    
-        fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-        if fh:read() == nil then
-          batterywidget:set_text(" No Battery | ")
+        if io.popen("acpi | cut -d, -f 2,3 -", "r"):read("*l")  == nil then
+           batterywidget:set_text(" No Battery | ")
         else
+          fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
           batterywidget:set_text(" Battery: " .. fh:read("*l") .. " | ")    
         end
         fh:close()    
