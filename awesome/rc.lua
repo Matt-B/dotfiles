@@ -206,9 +206,9 @@ for s = 1, screen.count() do
            batterywidget:set_text(" No Battery | ")
         else
           fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-          batterywidget:set_text(" Battery: " .. fh:read("*l") .. " | ")    
+          batterywidget:set_text(" Battery: " .. fh:read("*l") .. " | ")
+          fh:close()    
         end
-        fh:close()    
       end    
     )    
     batterywidgettimer:start()
