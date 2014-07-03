@@ -11,6 +11,9 @@ rm -f ~/.bashrc
 # .xprofile
 rm -f ~/.xprofile
 
+# .Xresources
+rm -f ~/.Xresources
+
 # Symlink to the new files
 
 # Awesome WM Config
@@ -21,3 +24,6 @@ ln -s $PWD/bash/bashrc ~/.bashrc
 
 # .xprofile
 ln -s $PWD/x/xprofile ~/.xprofile
+
+# .Xresources
+ln -s $PWD/x/Xresources ~/.Xresources
