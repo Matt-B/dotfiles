@@ -75,7 +75,7 @@ local layouts =
 -- {{{ Wallpaper
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        gears.wallpaper.centered(beautiful.wallpaper, s)
     end
 end
 -- }}}
@@ -119,9 +119,9 @@ vicious.register(memwidget, vicious.widgets.mem, " RAM: $1% | ")
 -- Network usage widget (use wlp2s0 on laptop, enp3s0 on desktop)
 netwidget = wibox.widget.textbox()
 if widgets.os()[4] == "velociraptor" then
-  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${wlp2s0 down_kb}</span> <span color="#7F9F7F">Up: ${wlp2s0 up_kb}</span> | ', 3)
+  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${wlp2s0 down_kb}</span> <span color="#7F9F7F">Up: ${wlp2s0 up_kb}</span> ', 3)
 else
-  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${enp3s0 down_kb}</span> <span color="#7F9F7F">Up: ${enp3s0 up_kb}</span> | ', 3)
+  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${enp3s0 down_kb}</span> <span color="#7F9F7F">Up: ${enp3s0 up_kb}</span> ', 3)
 end
 -- CPU widget
 cpuwidget = wibox.widget.textbox()
@@ -129,8 +129,9 @@ vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1% |")
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
--- Create a wibox for each screen and add it
-mywibox = {}
+-- Create a wibox for the top and bottom of each screen and add it
+mytopwibox = {}
+mybottomwibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -213,32 +214,41 @@ for s = 1, screen.count() do
     )    
     batterywidgettimer:start()
 
-    -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    -- Create a wibox for the top and one for the bottom
+    mytopwibox[s] = awful.wibox({ position = "top", screen = s })
+    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s })
 
-    -- Widgets that are aligned to the left
+    -- Widgets that are aligned to the left at the top
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
 
-    -- Widgets that are aligned to the right
+    -- Widgets that are aligned to the right at the top
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(batterywidget)
-    right_layout:add(cpuwidget)
-    right_layout:add(memwidget)
-    right_layout:add(netwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
-    -- Now bring it all together (with the tasklist in the middle)
+    -- Widgets that are in the middle at the bottom
+    local bottom_middle_layout = wibox.layout.fixed.horizontal()
+    bottom_middle_layout:add(batterywidget)
+    bottom_middle_layout:add(cpuwidget)
+    bottom_middle_layout:add(memwidget)
+    bottom_middle_layout:add(netwidget)
+
+    -- Now bring it all together at the top (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
     layout:set_middle(mytasklist[s])
     layout:set_right(right_layout)
 
-    mywibox[s]:set_widget(layout)
+    -- And bring it together at the bottom
+    local bottom_layout = wibox.layout.align.horizontal()
+    bottom_layout:set_middle(bottom_middle_layout)
+
+    mytopwibox[s]:set_widget(layout)
+    mybottomwibox[s]:set_widget(bottom_layout)
 end
 -- }}}
 
