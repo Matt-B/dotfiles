@@ -115,14 +115,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- {{{ Wibox
 -- Memory usage widget
 memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, " RAM: $1% | ")
--- Network usage widget (use wlp2s0 on laptop, enp3s0 on desktop)
-netwidget = wibox.widget.textbox()
-if widgets.os()[4] == "velociraptor" then
-  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${wlp2s0 down_kb}</span> <span color="#7F9F7F">Up: ${wlp2s0 up_kb}</span> ', 3)
-else
-  vicious.register(netwidget, vicious.widgets.net, ' Network <span color="#CC9393">Down: ${enp3s0 down_kb}</span> <span color="#7F9F7F">Up: ${enp3s0 up_kb}</span> ', 3)
-end
+vicious.register(memwidget, vicious.widgets.mem, " RAM: $1% ")
 -- CPU widget
 cpuwidget = wibox.widget.textbox()
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1% |")
@@ -199,7 +192,7 @@ for s = 1, screen.count() do
 
     -- Create a battery widget
     batterywidget = wibox.widget.textbox()    
-    batterywidget:set_text(" Battery | ")    
+    batterywidget:set_text(" Determining Battery Status... | ")    
     batterywidgettimer = timer({ timeout = 5 })    
     batterywidgettimer:connect_signal("timeout",    
       function()    
@@ -230,12 +223,11 @@ for s = 1, screen.count() do
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
-    -- Widgets that are in the middle at the bottom
-    local bottom_middle_layout = wibox.layout.fixed.horizontal()
-    bottom_middle_layout:add(batterywidget)
-    bottom_middle_layout:add(cpuwidget)
-    bottom_middle_layout:add(memwidget)
-    bottom_middle_layout:add(netwidget)
+    -- Widgets that are aligned to the right at the bottom
+    local bottom_right_layout = wibox.layout.fixed.horizontal()
+    bottom_right_layout:add(batterywidget)
+    bottom_right_layout:add(cpuwidget)
+    bottom_right_layout:add(memwidget)
 
     -- Now bring it all together at the top (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -245,7 +237,7 @@ for s = 1, screen.count() do
 
     -- And bring it together at the bottom
     local bottom_layout = wibox.layout.align.horizontal()
-    bottom_layout:set_middle(bottom_middle_layout)
+    bottom_layout:set_right(bottom_right_layout)
 
     mytopwibox[s]:set_widget(layout)
     mybottomwibox[s]:set_widget(bottom_layout)
@@ -491,3 +483,4 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+awful.util.spawn_with_shell("wicd-client --tray")
