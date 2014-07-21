@@ -406,6 +406,9 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    -- To stop there being a blank strip at the bottom of XTerm windows
+    { rule = { class = "XTerm" },
+      properties = { size_hints_honor = false } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
