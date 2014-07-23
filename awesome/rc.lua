@@ -312,7 +312,7 @@ globalkeys = awful.util.table.join(
               end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
-    awful.key({ modkey }, "l", function () awful.util.spawn("xscreensaver-command --lock") end)    
+    awful.key({ modkey }, "l", function () awful.util.spawn("light-locker-command -l") end)    
 )
 
 clientkeys = awful.util.table.join(
@@ -488,3 +488,4 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 awful.util.spawn_with_shell("wicd-client --tray")
+awful.util.spawn_with_shell("light-locker &")

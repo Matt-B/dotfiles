@@ -14,9 +14,6 @@ rm -f ~/.xprofile
 # .Xresources
 rm -f ~/.Xresources
 
-# .xinitrc
-rm -f ~/.xinitrc
-
 # Symlink to the new files
 
 # Awesome WM Config
@@ -30,6 +27,3 @@ ln -s $PWD/x/xprofile ~/.xprofile
 
 # .Xresources
 ln -s $PWD/x/Xresources ~/.Xresources
-
-# .xinitrc
-ln -s $PWD/x/xinitrc ~/.xinitrc
