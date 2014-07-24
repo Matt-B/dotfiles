@@ -8,6 +8,12 @@
 # Set the default prompt
 PS1='[\u@\h \W]\$ '
 
+# Add rubygems to PATH
+PATH="`ruby -rubygems -e 'puts Gem.user_dir'`/bin:$PATH"
+
+# Get bundler to install gems in the right place
+export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+
 # Start tmux by default
 if [[ ! $TERM =~ screen ]]; then
     exec tmux
