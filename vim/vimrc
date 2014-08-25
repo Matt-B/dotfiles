@@ -1,0 +1,16 @@
+" Pathogen
+call pathogen#infect()
+" Colour syntax highlighting
+syntax enable 
+" File type based indentation
+filetype plugin indent on
+" Solarized colourscheme
+set background=dark
+colorscheme solarized
+" Get rid of the menus and scroll bars in gVim
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+" Always show the status line
+set laststatus=2

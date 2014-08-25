@@ -14,6 +14,10 @@ rm -f ~/.xprofile
 # .Xresources
 rm -f ~/.Xresources
 
+# vim
+rm -f ~/.vimrc
+rm -Rf ~/.vim
+
 # Symlink to the new files
 
 # Awesome WM Config
@@ -27,3 +31,7 @@ ln -s $PWD/x/xprofile ~/.xprofile
 
 # .Xresources
 ln -s $PWD/x/Xresources ~/.Xresources
+
+# vim
+ln -s $PWD/vim/vimrc ~/.vimrc
+ln -s $PWD/vim/vim ~/.vim
