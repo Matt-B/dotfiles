@@ -7,6 +7,8 @@ filetype plugin indent on
 " Solarized colourscheme
 set background=dark
 colorscheme solarized
+" 256 colour mode
+set t_Co=256
 " Get rid of the menus and scroll bars in gVim
 set guioptions-=m
 set guioptions-=T
@@ -16,3 +18,5 @@ set guioptions-=L
 set laststatus=2
 " Set the font
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
+" Turn Powerline symbols on
+let g:airline_powerline_fonts = 1
