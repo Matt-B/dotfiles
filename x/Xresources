@@ -1,7 +1,7 @@
-# Set font
-xterm*faceName: Terminus:style=regular:size=10
+! Set font
+xterm*faceName: Droid Sans Mono for Powerline:style=regular:size=10
 
-# Colours
+! Colours
 XTerm*Background: black
 XTerm*Foreground: white
 

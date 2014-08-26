@@ -14,3 +14,5 @@ set guioptions-=r
 set guioptions-=L
 " Always show the status line
 set laststatus=2
+" Set the font
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
