@@ -20,3 +20,9 @@ set laststatus=2
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
 " Turn Powerline symbols on
 let g:airline_powerline_fonts = 1
+" Set indentation to 2 spaces
+set shiftwidth=2
+" Set tabs to be 2 spaces
+set tabstop=2
+" Expand all tab characters to 2 spaces
+set expandtab
