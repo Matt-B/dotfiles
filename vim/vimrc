@@ -26,3 +26,5 @@ set shiftwidth=2
 set tabstop=2
 " Expand all tab characters to 2 spaces
 set expandtab
+" Show line numbers
+set number
