@@ -492,4 +492,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 awful.util.spawn_with_shell("wicd-client --tray")
 awful.util.spawn_with_shell("light-locker &")
-awful.util.spawn_with_shell("blueman-manager")
+awful.util.spawn_with_shell("blueman-applet")
