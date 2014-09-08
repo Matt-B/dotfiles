@@ -2,12 +2,4 @@ dotfiles
 ========
 My dotfiles. Nothing to see here.
 
-In case of emergency, break glass and install:
-awesome
-light-locker
-lightdm
-lightdm-webkit-greeter
-bevel (greeter theme)
-tmux
-wicd
-wicd-gtk
+Run with the --init flag to install all necessary packages and update all submodules. You'll need to have yaourt and git installed already.
