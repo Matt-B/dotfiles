@@ -310,6 +310,16 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+    -- Web search prompt
+    awful.key({ modkey }, "g",
+              function ()
+                  awful.prompt.run({ prompt = "Web search: " }, 
+                  mypromptbox[mouse.screen].widget,
+                  function (command)
+                    awful.util.spawn("google-chrome-stable --new-window 'https://www.google.co.uk/#q="..command.."'", false)
+                  end)
+              end),
+
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
     awful.key({ modkey }, "l", function () awful.util.spawn("light-locker-command -l") end)    
