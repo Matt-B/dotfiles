@@ -207,6 +207,32 @@ for s = 1, screen.count() do
     )    
     batterywidgettimer:start()
 
+    volumewidget = wibox.widget.textbox()
+    volumewidget:set_align("right")
+
+    function update_volume(widget)
+      local fd = io.popen("amixer sget Master")
+      local status = fd:read("*all")
+      fd:close()
+      local volume = string.match(status, "(%d?%d?%d)%%")
+      volume = string.format("% 3d", volume)
+      status = string.match(status, "%[(o[^%]]*)%]")
+      if string.find(status, "on", 1, true) then
+        -- For the volume number percentage 
+        volume = "Volume: " .. volume .. "%" .. " | "
+      else
+        -- For displaying the mute status.
+        volume = "Volume: " .. volume .. "M" .. " | "
+      end
+      widget:set_markup(volume)
+    end
+    
+    update_volume(volumewidget)
+
+    mytimer = timer({ timeout = 0.2 })
+    mytimer:connect_signal("timeout", function () update_volume(volumewidget) end)
+    mytimer:start()
+
     -- Create a wibox for the top and one for the bottom
     mytopwibox[s] = awful.wibox({ position = "top", screen = s })
     mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s })
@@ -225,6 +251,7 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right at the bottom
     local bottom_right_layout = wibox.layout.fixed.horizontal()
+    bottom_right_layout:add(volumewidget)
     bottom_right_layout:add(batterywidget)
     bottom_right_layout:add(cpuwidget)
     bottom_right_layout:add(memwidget)
