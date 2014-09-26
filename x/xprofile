@@ -2,5 +2,7 @@
 xset -b &
 # Set the keyboard map to GB
 setxkbmap gb &
+# Start pulseaudio if not already started
+pulseaudio --start &
 # Load .Xresources
 xrdb ~/.Xresources &
