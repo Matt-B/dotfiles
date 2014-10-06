@@ -207,6 +207,7 @@ for s = 1, screen.count() do
     )    
     batterywidgettimer:start()
 
+    -- Create a volume widget
     volumewidget = wibox.widget.textbox()
     volumewidget:set_align("right")
 
@@ -215,14 +216,18 @@ for s = 1, screen.count() do
       local status = fd:read("*all")
       fd:close()
       local volume = string.match(status, "(%d?%d?%d)%%")
-      volume = string.format("% 3d", volume)
-      status = string.match(status, "%[(o[^%]]*)%]")
-      if string.find(status, "on", 1, true) then
-        -- For the volume number percentage 
-        volume = "Volume: " .. volume .. "%" .. " | "
+      if volume ~= nil then
+        volume = string.format("% 3d", volume)
+        status = string.match(status, "%[(o[^%]]*)%]")
+        if string.find(status, "on", 1, true) then
+          -- For the volume number percentage 
+          volume = "Volume: " .. volume .. "%" .. " | "
+        else
+          -- For displaying the mute status.
+          volume = "Volume: " .. volume .. "M" .. " | "
+        end
       else
-        -- For displaying the mute status.
-        volume = "Volume: " .. volume .. "M" .. " | "
+        volume = "Volume: Not available |"
       end
       widget:set_markup(volume)
     end
