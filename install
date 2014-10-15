@@ -4,7 +4,7 @@
 if [[ $* == *--init* ]]
   then
     # Get all required packages and install them
-    yaourt -S awesome tmux wicd wicd-gtk lightdm light-locker lightdm-webkit-greeter bevel gvim otf-droidsansmono-powerline-git vim-pathogen blueman-bluez5-git alsa-utils 
+    yaourt -S awesome tmux wicd wicd-gtk lightdm light-locker lightdm-webkit-greeter bevel gvim otf-droidsansmono-powerline-git vim-pathogen blueman-bluez5-git alsa-utils pulseaudio 
     # Update submodules
     cd $PWD
     git submodule update --init
