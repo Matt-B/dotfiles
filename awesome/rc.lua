@@ -345,7 +345,7 @@ globalkeys = awful.util.table.join(
     -- Web search prompt
     awful.key({ modkey }, "g",
               function ()
-                  awful.prompt.run({ prompt = "Web search: " }, 
+                  awful.prompt.run({ prompt = "Google: " }, 
                   mypromptbox[mouse.screen].widget,
                   function (command)
                     awful.util.spawn("google-chrome-stable --new-window 'https://www.google.co.uk/#q="..command.."'", false)
