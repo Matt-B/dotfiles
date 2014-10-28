@@ -22,8 +22,10 @@ set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
 let g:airline_powerline_fonts = 1
 " Set indentation to 2 spaces
 set shiftwidth=2
-" Set tabs to be 2 spaces
+" Tabs count for 2 spaces
 set tabstop=2
+" When we hit tab in insert mode we want it to use 2 columns
+set softtabstop=2
 " Expand all tab characters to 2 spaces
 set expandtab
 " Show line numbers
