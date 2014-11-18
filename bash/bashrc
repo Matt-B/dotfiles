@@ -13,8 +13,3 @@ PATH="`ruby -rubygems -e 'puts Gem.user_dir'`/bin:$PATH"
 
 # Get bundler to install gems in the right place
 export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-
-# Start tmux by default
-if [[ ! $TERM =~ screen ]]; then
-    exec tmux
-fi
