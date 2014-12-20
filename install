@@ -29,6 +29,9 @@ rm -f ~/.Xresources
 rm -f ~/.vimrc
 rm -Rf ~/.vim
 
+# jshint
+rm -f ~/.jshintrc
+
 # Symlink to the new files
 
 # Awesome WM Config
@@ -46,3 +49,6 @@ ln -s $PWD/x/Xresources ~/.Xresources
 # vim
 ln -s $PWD/vim/vimrc ~/.vimrc
 ln -s $PWD/vim/vim ~/.vim
+
+# jshint
+ln -s $PWD/jshintrc ~/.jshintrc
