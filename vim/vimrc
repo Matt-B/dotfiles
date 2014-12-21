@@ -30,3 +30,7 @@ set softtabstop=2
 set expandtab
 " Show line numbers
 set number
+" Don't bother using swap files or backups
+set nobackup
+set nowb
+set noswapfile
