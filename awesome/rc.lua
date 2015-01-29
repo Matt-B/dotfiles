@@ -345,7 +345,7 @@ globalkeys = awful.util.table.join(
 
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
-    awful.key({ modkey }, "l", function () awful.util.spawn("light-locker-command -l") end)    
+    awful.key({ modkey }, "s", function () awful.util.spawn("light-locker-command -l") end)    
 )
 
 clientkeys = awful.util.table.join(
