@@ -34,3 +34,8 @@ set number
 set nobackup
 set nowb
 set noswapfile
+" Don't make annoying beeps
+set noeb
+" Wildmenu and related settings
+set wildmenu
+set wildmode=list:longest,full
