@@ -3,8 +3,10 @@
 # If the --init flag is set, this is a new system and we need to get all dependencies. 
 if [[ $* == *--init* ]]
   then
-    # Get all required packages and install them
-    yaourt -S awesome tmux wicd wicd-gtk lightdm light-locker lightdm-webkit-greeter bevel gvim otf-droidsansmono-powerline-git vim-pathogen blueman-bluez5-git alsa-utils pulseaudio 
+    # Get all required packages from the arch package databases and install them
+    sudo aura -Sy awesome wicd wicd-gtk gvim alsa-utils pulseaudio lxdm
+    # Get all required packages from the AUR
+    sudo aura -Ay otf-droidsansmono-powerline-git vim-pathogen blueman
     # Update submodules
     cd $PWD
     git submodule update --init
