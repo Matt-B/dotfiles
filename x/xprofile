@@ -6,3 +6,5 @@ setxkbmap gb &
 pulseaudio --start &
 # Load .Xresources
 xrdb ~/.Xresources &
+# Start XScreensaver
+xscreensaver -nosplash &
