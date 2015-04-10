@@ -4,7 +4,7 @@
 
 theme = {}
 
-theme.font          = "sans 9"
+theme.font          = "Meslo LG M for Powerline 10"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"

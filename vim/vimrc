@@ -17,7 +17,7 @@ set guioptions-=L
 " Always show the status line
 set laststatus=2
 " Set the font
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
+set guifont=Meslo\ LG\ M\ for\ Powerline\ 10
 " Turn Powerline symbols on
 let g:airline_powerline_fonts = 1
 " Set indentation to 2 spaces

@@ -1,5 +1,8 @@
 ! Set font
-xterm*faceName: Droid Sans Mono for Powerline:style=regular:size=10
+xterm*faceName: Meslo LG M for Powerline:style=RegularForPowerline
+xterm*faceSize: 12
+UXTerm*faceName: Meslo LG M for Powerline:style=RegularForPowerline
+UXTerm*faceSize: 12
 
 ! Solarized color scheme for the X Window System
 !
@@ -71,5 +74,7 @@ xterm*color14:                 S_base1
 xterm*color15:                 S_base3
 
 ! Enable using Alt in irssi shortcuts
-XTerm*eightBitInput: false
-XTerm*metaSendsEscape: true
+xterm*eightBitInput: false
+xterm*metaSendsEscape: true
+UXTerm*eightBitInput: false
+UXTerm*metaSendsEscape: true

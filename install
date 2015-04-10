@@ -6,7 +6,7 @@ if [[ $* == *--init* ]]
     # Get all required packages from the arch package databases and install them
     sudo aura -Sy awesome wicd wicd-gtk gvim alsa-utils pulseaudio lxdm
     # Get all required packages from the AUR
-    sudo aura -Ay otf-droidsansmono-powerline-git vim-pathogen blueman
+    sudo aura -Ay otf-meslo-powerline-git vim-pathogen blueman
     # Update submodules
     cd $PWD
     git submodule update --init
