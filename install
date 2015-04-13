@@ -4,7 +4,7 @@
 if [[ $* == *--init* ]]
   then
     # Get all required packages from the arch package databases and install them
-    sudo aura -Sy awesome wicd wicd-gtk gvim alsa-utils pulseaudio lxdm acpi
+    sudo aura -Sy awesome wicd wicd-gtk gvim alsa-utils pulseaudio lxdm xscreensaver acpi
     # Get all required packages from the AUR
     sudo aura -Ay otf-meslo-powerline-git vim-pathogen blueman
     # Update submodules

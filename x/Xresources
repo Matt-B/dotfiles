@@ -1,8 +1,8 @@
 ! Set font
 xterm*faceName: Meslo LG M for Powerline:style=RegularForPowerline
-xterm*faceSize: 12
+xterm*faceSize: 10
 UXTerm*faceName: Meslo LG M for Powerline:style=RegularForPowerline
-UXTerm*faceSize: 12
+UXTerm*faceSize: 10
 
 ! Solarized color scheme for the X Window System
 !
