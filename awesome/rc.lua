@@ -164,7 +164,11 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+
+-- {{{ Things that should be on all screens
+
 for s = 1, screen.count() do
+
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
@@ -181,57 +185,7 @@ for s = 1, screen.count() do
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
-    -- Create a battery widget
-    batterywidget = wibox.widget.textbox()    
-    batterywidget:set_text(" Determining Battery Status... | ")    
-    batterywidgettimer = timer({ timeout = 5 })    
-    batterywidgettimer:connect_signal("timeout",    
-      function()    
-        if io.popen("acpi | cut -d, -f 2,3 -", "r"):read("*l")  == nil then
-           batterywidget:set_text(" No Battery | ")
-        else
-          fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-          batterywidget:set_text(" Battery: " .. fh:read("*l") .. " | ")
-          fh:close()    
-        end
-      end    
-    )    
-    batterywidgettimer:start()
-
-    -- Create a volume widget
-    volumewidget = wibox.widget.textbox()
-    volumewidget:set_align("right")
-
-    function update_volume(widget)
-      local fd = io.popen("amixer sget Master")
-      local status = fd:read("*all")
-      fd:close()
-      local volume = string.match(status, "(%d?%d?%d)%%")
-      if volume ~= nil then
-        volume = string.format("% 3d", volume)
-        status = string.match(status, "%[(o[^%]]*)%]")
-        if string.find(status, "on", 1, true) then
-          -- For the volume number percentage 
-          volume = "Volume: " .. volume .. "%" .. " | "
-        else
-          -- For displaying the mute status.
-          volume = "Volume: " .. volume .. "M" .. " | "
-        end
-      else
-        volume = "Volume: Not available |"
-      end
-      widget:set_markup(volume)
-    end
-    
-    update_volume(volumewidget)
-
-    mytimer = timer({ timeout = 0.2 })
-    mytimer:connect_signal("timeout", function () update_volume(volumewidget) end)
-    mytimer:start()
-
-    -- Create a wibox for the top and one for the bottom
     mytopwibox[s] = awful.wibox({ position = "top", screen = s })
-    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s })
 
     -- Widgets that are aligned to the left at the top
     local left_layout = wibox.layout.fixed.horizontal()
@@ -245,26 +199,80 @@ for s = 1, screen.count() do
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
-    -- Widgets that are aligned to the right at the bottom
-    local bottom_right_layout = wibox.layout.fixed.horizontal()
-    bottom_right_layout:add(volumewidget)
-    bottom_right_layout:add(batterywidget)
-    bottom_right_layout:add(cpuwidget)
-    bottom_right_layout:add(memwidget)
-
     -- Now bring it all together at the top (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
     layout:set_middle(mytasklist[s])
     layout:set_right(right_layout)
 
-    -- And bring it together at the bottom
-    local bottom_layout = wibox.layout.align.horizontal()
-    bottom_layout:set_right(bottom_right_layout)
-
     mytopwibox[s]:set_widget(layout)
-    mybottomwibox[s]:set_widget(bottom_layout)
 end
+-- }}}
+
+-- {{{ Things that should only be on the first screen
+
+-- Create a battery widget
+batterywidget = wibox.widget.textbox()    
+batterywidget:set_text(" Determining Battery Status... | ")    
+batterywidgettimer = timer({ timeout = 5 })    
+batterywidgettimer:connect_signal("timeout",    
+  function()    
+    if io.popen("acpi | cut -d, -f 2,3 - | sed -e 's/^[ \t]*//'", "r"):read("*l")  == nil then
+      batterywidget:set_text(" No Battery | ")
+    else
+      fh = assert(io.popen("acpi | cut -d, -f 2,3 - | sed -e 's/^[ \t]*//'", "r"))
+      batterywidget:set_text(" Battery: " .. fh:read("*l") .. " | ")
+      fh:close()    
+    end
+  end    
+)    
+batterywidgettimer:start()
+
+-- Create a volume widget
+volumewidget = wibox.widget.textbox()
+volumewidget:set_align("right")
+
+function update_volume(widget)
+  local fd = io.popen("amixer sget Master")
+  local status = fd:read("*all")
+  fd:close()
+  local volume = string.match(status, "(%d?%d?%d)%%")
+  if volume ~= nil then
+    volume = string.format("% 3d", volume)
+    status = string.match(status, "%[(o[^%]]*)%]")
+    if string.find(status, "on", 1, true) then
+      -- For the volume number percentage 
+      volume = "Volume: " .. volume .. "%" .. " | "
+    else
+      -- For displaying the mute status.
+      volume = "Volume: " .. volume .. "% (Muted)" .. " | "
+    end
+  else
+    volume = "Volume: Not available |"
+  end
+  widget:set_markup(volume)
+end
+
+update_volume(volumewidget)
+
+mytimer = timer({ timeout = 0.2 })
+mytimer:connect_signal("timeout", function () update_volume(volumewidget) end)
+mytimer:start()
+
+mybottomwibox[1] = awful.wibox({ position = "bottom", screen = 1 })
+
+-- Widgets that are aligned to the right at the bottom
+local bottom_right_layout = wibox.layout.fixed.horizontal()
+bottom_right_layout:add(volumewidget)
+bottom_right_layout:add(batterywidget)
+bottom_right_layout:add(cpuwidget)
+bottom_right_layout:add(memwidget)
+
+-- And bring it together at the bottom
+local bottom_layout = wibox.layout.align.horizontal()
+bottom_layout:set_right(bottom_right_layout)
+mybottomwibox[1]:set_widget(bottom_layout)
+
 -- }}}
 
 -- {{{ Mouse bindings
