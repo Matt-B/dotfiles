@@ -1,7 +1,9 @@
 " Pathogen
 call pathogen#infect()
 " Colour syntax highlighting
-syntax enable 
+syntax enable
+" Fix issues with syntax highlighting
+autocmd BufEnter * :syntax sync fromstart
 " File type based indentation
 filetype plugin indent on
 " Solarized colourscheme
@@ -17,7 +19,7 @@ set guioptions-=L
 " Always show the status line
 set laststatus=2
 " Set the font
-set guifont=Meslo\ LG\ M\ for\ Powerline\ 10
+set guifont=Droid\ Sans\ Mono\ for\ Powerline:h14
 " Turn Powerline symbols on
 let g:airline_powerline_fonts = 1
 " Set indentation to 2 spaces
