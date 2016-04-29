@@ -4,7 +4,7 @@
 if [[ $* == *--init* ]]
   then
     # Get all required packages from the arch package databases and install them
-    sudo aura -Sy gvim
+    sudo aura -Sy gvim zsh
     # Get all required packages from the AUR
     sudo aura -Ay vim-pathogen
     # Update submodules
@@ -12,6 +12,8 @@ if [[ $* == *--init* ]]
     git submodule update --init
 fi
 
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Remove any existing versions of the files
 
@@ -22,6 +24,9 @@ rm -Rf ~/.vim
 # jshint
 rm -f ~/.jshintrc
 
+# zsh
+rm -f ~/.zshrc
+
 # Symlink to the new files
 
 # vim
@@ -30,3 +35,6 @@ ln -s $PWD/vim/vim ~/.vim
 
 # jshint
 ln -s $PWD/jshintrc ~/.jshintrc
+
+# zsh
+ln -s $PWD/zsh/zshrc ~/.zshrc
