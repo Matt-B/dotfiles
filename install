@@ -10,10 +10,11 @@ if [[ $* == *--init* ]]
     # Update submodules
     cd $PWD
     git submodule update --init
+
+    # Install oh-my-zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Remove any existing versions of the files
 
