@@ -6,7 +6,7 @@ if [[ $* == *--init* ]]
     # Get all required packages from the arch package databases and install them
     sudo aura -Sy gvim zsh
     # Get all required packages from the AUR
-    sudo aura -Ay vim-pathogen
+    sudo aura -Ay vim-pathogen otf-droid-sans-mono-powerline-git
     # Update submodules
     cd $PWD
     git submodule update --init
